@@ -35,12 +35,12 @@ def main():
         height = compute_height(n, parents)
         print (height)
     elif choice == "F":
-        # path example -> ./test/01
+        # path example -> 01
         path = input()
         if "a" in path:
             print("Invalid input") 
         else:
-            with open(path, 'r') as f:
+            with open("./test/" + path, 'r') as f:
                 n = int(f.readline().strip())
                 parents = [int(x) for x in f.readline().strip().split(" ")]
             height = compute_height(n, parents)
