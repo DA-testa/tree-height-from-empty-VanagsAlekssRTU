@@ -5,21 +5,49 @@ import threading
 
 
 def compute_height(n, parents):
-    # Write this function
     max_height = 0
-    # Your code here
-    return max_height
+    height = [1] * n
+    viewed = {}
+
+    for i, nodes in enumerate(parents):
+        node = int(nodes)
+
+        if node in viewed:
+            height[i] = height[viewed[node]]
+            continue
+        if node != -1:
+            viewed[node] = parents.index(node)
+        
+        while node != -1:
+            height[i] += 1
+            node = parents[node]
+
+    return max(height)
 
 
 def main():
-    # implement input form keyboard and from files
+
+    choice = input().strip().upper()
     
-    # let user input file name to use, don't allow file names with letter a
-    # account for github input inprecision
-    
-    # input number of elements
-    # input values in one variable, separate with space, split these values in an array
-    # call the function and output it's result
+    if choice == "I":
+        n = int(input())
+        parents = input().split()
+        height = compute_height(n, parents)
+        print (height)
+    elif choice == "F":
+        # path example -> 01
+        path = input()
+        if "a" in path:
+            print("Invalid input") 
+        else:
+            with open("./test/" + path, 'r') as f:
+                n = int(f.readline().strip())
+                parents = [int(x) for x in f.readline().strip().split(" ")]
+            height = compute_height(n, parents)
+            print (height)
+    else: 
+        print("Invalid input")
+        main()
 
 
 # In Python, the default limit on recursion depth is rather low,
